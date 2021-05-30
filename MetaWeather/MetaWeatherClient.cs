@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.Globalization;
+using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
 using System.Threading.Tasks;
@@ -21,10 +22,17 @@ namespace MetaWeather
         //    }
         //};
 
-        public async Task<WeatherLocation[]> GetLocationByName(string Name, CancellationToken Cancel = default)
+        public async Task<WeatherLocation[]> GetLocation(string Name, CancellationToken Cancel = default)
         {
             return await _Client
                .GetFromJsonAsync<WeatherLocation[]>($"/api/location/search/?query={Name}", /*__JsonOptions,*/ Cancel)
+               .ConfigureAwait(false);
+        }
+
+        public async Task<WeatherLocation[]> GetLocation((double Latitude, double Longitude) Location, CancellationToken Cancel = default)
+        {
+            return await _Client
+               .GetFromJsonAsync<WeatherLocation[]>($"/api/location/search/?lattlong={Location.Latitude.ToString(CultureInfo.InvariantCulture)},{Location.Longitude.ToString(CultureInfo.InvariantCulture)}", Cancel)
                .ConfigureAwait(false);
         }
     }
