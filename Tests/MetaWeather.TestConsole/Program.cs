@@ -33,7 +33,7 @@ namespace MetaWeather.TestConsole
 
             //var locations = await weather.GetLocation(moscow[0].Location);
 
-            var info = await weather.GetInfo(moscow[0].Id);
+            var info = await weather.GetInfo(moscow[0]);
 
             Console.WriteLine("Завершено!");
             Console.ReadLine();
