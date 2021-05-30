@@ -51,5 +51,11 @@ namespace MetaWeather
                .GetFromJsonAsync<WeatherInfo[]>($"/api/location/{WoeId}/{Time:yyyy}/{Time:MM}/{Time:dd}/", Cancel)
                .ConfigureAwait(false);
         }
+
+        public Task<WeatherInfo[]> GetWeather(LocationInfo Location, DateTime Time, CancellationToken Cancel = default) =>
+            GetWeather(Location.Id, Time, Cancel);
+
+        public Task<WeatherInfo[]> GetWeather(WeatherLocation Location, DateTime Time, CancellationToken Cancel = default) =>
+            GetWeather(Location.Id, Time, Cancel);
     }
 }
